@@ -34,16 +34,20 @@ generate_partition(V,E,A,B,S):-packSubsets(V,[],VR),
     member(S,RE),B\=S,A\=S,union(A,B,X),
     isSubset(X,V),isSubset(V,X).
 
+% without backtracking
+generate_partition2(V,E,A,B,S):-subset(A,V),subset(B,V),not(intersection(A,B)),
+    subset(S,E),union(A,B,X),isSubset(X,V),isSubset(V,X).
+
 %are_edges_in_two_sets(E,A,B)
 are_edges_in_two_sets([],_,_).
 are_edges_in_two_sets([[H,H2]|T1],A,B):-are_edges_in_two_sets(T1,A,B),
     member(H,A),not(member(H2,B));
     member(H,B),not(member(H2,A)).
 
-generate_eseparator(V,E,A,B,S):-generate_partition(V,E,A,B,S),
+generate_eseparator(V,E,A,B,S):-generate_partition2(V,E,A,B,S),
     removeElems(S,E,S1),are_edges_in_two_sets(S1,A,B).
 
-generate_k_eseparators(V,E,K,A,B,S):-generate_eseparator(V,E,A,B,S),
+generate_k_eseparators(V,E,K,A,B,S):-generate_eseparator2(V,E,A,B,S),
     length2(A,LA),length2(B,LB),length2(S,LS),LB>=K,LA>=K,K>=LS.
 
 
