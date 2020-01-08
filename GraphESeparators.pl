@@ -28,6 +28,7 @@ packSubsets([],[],[]).
 packSubsets(L,R,R):-not((subset(P,L),not(member(P,R)))).
 packSubsets(L,B,R):-subset(P,L),not(member(P,B)),packSubsets(L,[P|B],R),!.
 
+% this is very bad.
 generate_partition(V,E,A,B,S):-packSubsets(V,[],VR),
     member(A,VR),member(B,VR),A\=B,not(intersection(A,B)),
    	packSubsets(E,[],RE),
