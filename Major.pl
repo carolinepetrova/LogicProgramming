@@ -12,6 +12,9 @@ member(X,[_|T]):-member(X,T).
 isSubset([],_).
 isSubset([H|T],L):-member(H,L),isSubset(T,L).
 
+not_major(_,[]).
+not_major(X,[H|T]):-not(isSubset(X,H)),not_major(X,T).
+
 major_checker([_]).
 major_checker([H|T]):-not((member(X,T),isSubset(X,H))),major_checker(T),!.
 
