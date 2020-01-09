@@ -16,7 +16,7 @@ not_major(_,[]).
 not_major(X,[H|T]):-not(isSubset(X,H)),not_major(X,T).
 
 major_checker([_]).
-major_checker([H|T]):-not((member(X,T),isSubset(X,H))),major_checker(T),!.
+major_checker([H|T]):-not((member(X,T),isSubset(X,H))),major_checker(T).
 
 %p(L,M)
 p(L,R):-permutate(L,R),major_checker(R).
