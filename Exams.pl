@@ -30,3 +30,26 @@ listAppender([H|T],B,R):-listAppender(T,R1,R),append(H,B,R1).
 
 reverse([],R,R).
 reverse([H|T],B,R):-reverse(T,[H|B],R).
+
+%q(K,M) - pismen izpit 01.07.2018
+
+subsequence([],[]).
+subsequence(S,[_|T]):-subsequence(S,T).
+subsequence([H|S],[H|T]):-subsequence(S,T).
+
+%isElemAtPositionsIsmaller(L,M)
+isElemAtPositionISmaller([],[]).
+isElemAtPositionISmaller([X|T1],[X2|T2]):-
+    X2=<X,isElemAtPositionISmaller(T1,T2).
+
+length2([],0).
+length2([_|T],N):-length2(T,M),N is M+1.
+
+member(H,[H|_]).
+member(X,[_|T]):-member(X,T).
+
+%q(K,M)
+q(K,M):-not((member(El,K),subsequence(SEl,El),
+                length2(M,L1),length(SEl,L2),L1==L2,
+    not(isElemAtPositionISmaller(M,SEl)))).
+                
