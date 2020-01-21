@@ -52,4 +52,14 @@ member(X,[_|T]):-member(X,T).
 q(K,M):-not((member(El,K),subsequence(SEl,El),
                 length2(M,L1),length(SEl,L2),L1==L2,
     not(isElemAtPositionISmaller(M,SEl)))).
-                
+    
+    
+% ---------------------------
+% changeSystem(N,S,R) - N is number, S is number system, R is result
+
+change(N,S,[1]):-N<S.
+change(N,S,[Q|R]):-N>=S,M is div(N,S),Q is mod(N,S), change(M,S,R).
+
+% myPower(Num,Power,Res)
+myPower(_,0,1).
+myPower(N,P,R):-P>0,P1 is P-1,myPower(N,P1,R1),R is R1*N.
